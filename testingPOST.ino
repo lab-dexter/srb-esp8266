@@ -7,17 +7,12 @@ strDateTime dateTime;
 
 const char* ssid = "BarclaysWiFi";
 
-//const char* ssid = "Teo-A1CF57-Greitasis";
-//const char* password = "F5A4DC253C";
-
-//const char* ssid = "AndroidAP";
-//const char* password = "kvbt5659";
-
 unsigned long lastMillis = 0;
 
 // defines pins numbers
 const int trigPin = 5;  //D1
-int echoPins[] = {   15, 13, 12, 14  };       // an array of ECHO pins {  D8, D7, D6, D5  }
+const int powerPin = 15;  //D8
+int echoPins[] = {   4, 13, 12, 14  };       // an array of ECHO pins {  D2, D7, D6, D5  }
 
 String host = "http://srb-middleware-dexter-lab.e4ff.pro-eu-west-1.openshiftapps.com";
 String endPoint = "/v1/data";
@@ -29,6 +24,7 @@ void setup() {
   WiFi.begin(ssid);             //WiFi connection
 
   pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
+  pinMode(powerPin, OUTPUT); // Sets the powerPin as an Output
   for (int pin = 0; pin < (sizeof(echoPins)/sizeof(int)); pin++) {
     pinMode(echoPins[pin], INPUT);
   }
@@ -69,8 +65,8 @@ void setup() {
   {
     Serial.println("Error in WiFi connection");   
   }
-  Serial.println("Deep Sleep for 5 mins");
-  ESP.deepSleep(300e6, WAKE_RF_DEFAULT); // 60e6 is 1 min
+  Serial.println("Deep Sleep for 10 mins");
+  ESP.deepSleep(600e6, WAKE_RF_DEFAULT); // 60e6 is 1 min
 
 }
  
@@ -118,6 +114,7 @@ double getDistance(int echoPin) {
   double distance = 0;
   double averageDistance = 0;
 
+  digitalWrite(powerPin, HIGH); // powering up sensors
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
 
@@ -136,6 +133,7 @@ double getDistance(int echoPin) {
     }
     delay(100);
   } 
+  digitalWrite(powerPin, LOW); // power down sensors
   return averageDistance/count;
 }
 
