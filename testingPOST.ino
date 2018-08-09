@@ -7,7 +7,7 @@ NTPtime NTPch("lt.pool.ntp.org");
 strDateTime dateTime;
 
 const int FW_VERSION = 1001;
-const char* fwUrlBase = "https://github.com/lab-dexter/srb-esp8266/blob/master/esp8266";
+const char* fwUrlBase = "http://kurmis.net/fota/esp8266";
 
 const char* ssid = "BarclaysWiFi";
 
@@ -189,7 +189,7 @@ void checkForUpdates() {
       Serial.println( "Preparing to update" );
 
       String fwImageURL = fwURL;
-      fwImageURL.concat( ".bin" );
+      fwImageURL.concat( ".txt" );
       t_httpUpdate_return ret = ESPhttpUpdate.update( fwImageURL );
 
       switch(ret) {
