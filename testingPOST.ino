@@ -6,7 +6,7 @@
 NTPtime NTPch("lt.pool.ntp.org"); 
 strDateTime dateTime;
 
-const int FW_VERSION = 1001;
+const int FW_VERSION = 1000;
 const char* fwUrlBase = "http://kurmis.net/fota/esp8266";
 
 const char* ssid = "BarclaysWiFi";
@@ -64,7 +64,7 @@ void setup() {
       POSTrequest(sensor, mac, distance, date);
     }
     
-   checkForUpdates();
+  // checkForUpdates();
 
   }  
   else 
@@ -190,6 +190,8 @@ void checkForUpdates() {
 
       String fwImageURL = fwURL;
       fwImageURL.concat( ".txt" );
+      Serial.print( "Firmware URL: " );
+      Serial.println( fwImageURL );
       t_httpUpdate_return ret = ESPhttpUpdate.update( fwImageURL );
 
       switch(ret) {
