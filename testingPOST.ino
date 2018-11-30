@@ -13,10 +13,18 @@ const char* ssid = "BarclaysWiFi";
 
 unsigned long lastMillis = 0;
 
+//********** CHANGE PIN FUNCTION  TO GPIO **********
+//GPIO 1 (TX) swap the pin to a GPIO.
+pinMode(1, FUNCTION_3); 
+//GPIO 3 (RX) swap the pin to a GPIO.
+pinMode(3, FUNCTION_3); 
+//**************************************************
+
+
 // defines pins numbers
 const int trigPin = 5;  //D1
 const int powerPin = 15;  //D8
-int echoPins[] = {   4, 13, 12, 14  };       // an array of ECHO pins {  D2, D7, D6, D5  }
+int echoPins[] = {   4, 13, 12, 14, 1, 3 };       // an array of ECHO pins {  D2, D7, D6, D5, TX, RX }
 
 String host = "http://srb-middleware-dexter-lab.e4ff.pro-eu-west-1.openshiftapps.com";
 String endPoint = "/v1/data";
@@ -64,7 +72,7 @@ void setup() {
       POSTrequest(sensor, mac, distance, date);
     }
     
-  // checkForUpdates();
+  // checkForUpdates();   //call to check for awailable updates. Doesn't work with BarclaysWiFi
 
   }  
   else 
