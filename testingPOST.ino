@@ -13,25 +13,27 @@ const char* ssid = "BarclaysWiFi";
 
 unsigned long lastMillis = 0;
 
-//********** CHANGE PIN FUNCTION  TO GPIO **********
-//GPIO 1 (TX) swap the pin to a GPIO.
-pinMode(1, FUNCTION_3); 
-//GPIO 3 (RX) swap the pin to a GPIO.
-pinMode(3, FUNCTION_3); 
-//**************************************************
 
 
 // defines pins numbers
-const int trigPin = 5;  //D1
-const int powerPin = 15;  //D8
-int echoPins[] = {   4, 13, 12, 14, 1, 3 };       // an array of ECHO pins {  D2, D7, D6, D5, TX, RX }
+const int trigPin = 3;  //RX
+const int powerPin = 1;  //TX
+int echoPins[] = { 4, 13, 12, 14, 5, 15 };       // an array of ECHO pins {  D2, D7, D6, D5, D1, D8 }
+
 
 String host = "http://srb-middleware-dexter-lab.e4ff.pro-eu-west-1.openshiftapps.com";
 String endPoint = "/v1/data";
 //const char* json = "{\"id\":\"1\",\"mac\":\"00:00:00:00:00\",\"data\":\"-1\",\"time\":\"1994-03-09 00:00:00\"}";
 
 void setup() {
- 
+
+ //********** CHANGE PIN FUNCTION  TO GPIO **********
+
+pinMode(1, FUNCTION_3); //GPIO 1 (TX) swap the pin to a GPIO.
+
+pinMode(3, FUNCTION_3); //GPIO 3 (RX) swap the pin to a GPIO.
+//**************************************************
+
   Serial.begin(115200);         //Serial connection
   WiFi.begin(ssid);             //WiFi connection
 
